@@ -1,0 +1,119 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = "mongodb+srv://ksaksham39:Q2ynB2ygBslEFkkQ@cluster0.9bqjsk3.mongodb.net/courseify"
+}
+
+model User {
+  id             String    @id @default(auto()) @map("_id") @db.ObjectId
+  name           String?
+  image          String?
+  emailVerified  Boolean?
+  firstName      String? 
+  lastName       String?
+  email          String?  @unique
+  profilePicture String?
+  hashedPassword String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  sessions       Session[]
+  accounts       Account[]
+  videoProgress UserVideoProgress[]
+  purchasedCourses Course[]
+ 
+  //everc course should not directly have a completed key bcoz multiple users can purchass the same course and then the meter will collide for all
+}
+
+model Account {
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String  @db.ObjectId
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.String
+  access_token      String? @db.String
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.String
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  sessionToken String   @unique
+  userId       String   @db.ObjectId
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@index([userId])
+}
+model Course {
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  title             String
+  thumbnail         String
+  description       String
+  price             Float
+  duration          String
+  category          String[]
+  userId             String? @db.ObjectId
+  user              User? @relation(fields: [userId],references: [id])
+  instructorId      String @db.ObjectId
+  instructor        Admin    @relation(fields: [instructorId], references: [id])
+  reviews           Int?
+  published         Boolean
+  whatYouWillLearn  String[]
+  videoSection      Video[] //in this case prisma will not store videosection in the course document but each video section is linked to the course but we can use "include" to get videoSection though!!
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  rating            Rating?  @relation(fields: [ratingId], references: [id])
+  ratingId          String?  @db.ObjectId @unique
+
+}
+
+
+
+model Admin {
+  id      String   @id @default(auto()) @map("_id") @db.ObjectId
+  courses Course[]
+}
+
+model Rating {
+  id     String   @id @default(auto()) @map("_id") @db.ObjectId
+  rating Float
+  count  Int
+  course Course?
+}
+
+model Video {
+  id      String   @id @default(auto()) @map("_id") @db.ObjectId
+  title   String
+  videoUrl String
+  course  Course  @relation(fields: [courseId], references: [id])
+  courseId String @db.ObjectId
+  //going an extra mile from codewith antonio-->he has courseprogress only
+  //but we are tracking progress for every video
+  userProgress UserVideoProgress[]//thinking-->every video should have meany users!!, so we have to track many user progress, there forre user progress should be a array of objects where every object has a bunch of keys like userID,videoId etc
+  //so mota mota user progress ke paas kaafi saare users ki progress h
+}
+model UserVideoProgress {
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId   String   @db.ObjectId
+  videoId  String   @db.ObjectId
+  completed Boolean @default(false)
+
+  user  User  @relation(fields: [userId], references: [id])
+  video Video @relation(fields: [videoId], references: [id])
+
+  @@unique([userId, videoId])
+}
+
+
+
+//now think of change in routes,db,.....
