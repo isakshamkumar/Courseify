@@ -35,6 +35,11 @@ export const makePayment = async (course: any) => {
   const result = stripe?.redirectToCheckout({
     sessionId: session.sessionId,
   });
+  if(await result){
+    console.log(await result);
+    
+  }
+  
   if((await result).error){
     console.log((await result).error);
     
