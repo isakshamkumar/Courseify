@@ -1,17 +1,23 @@
 //add middlewares toooo
 import prisma from "../../../../../prisma/client";
 
+
 import { NextRequest, NextResponse } from "next/server";
+import { Course } from "@prisma/client";
 
 export async function GET(request: NextRequest) {
-    const pathname = request?.nextUrl?.pathname;
-// console.log(pathname);
-const courseId= pathname.split('/').pop()
+    const pathname:string|undefined = request?.nextUrl?.pathname;
+
+
+const courseId:string|undefined= pathname.split('/').pop()
+if(!courseId){
+  return NextResponse.json({error:true,message:'Course Id Requires'},{status:400})
+}
 // console.log(courseId);
 
 
   
-  const course = await prisma.course.findUnique({
+  const course:Course| null = await prisma.course.findUnique({
     where:{
         id: courseId
     },
@@ -20,7 +26,10 @@ const courseId= pathname.split('/').pop()
         instructor:true
     }
   });
+  if (!course) {
+    return NextResponse.json({ error: true, message: 'Course not found' }, { status: 404 });
+  }
 
-    return NextResponse.json({course})
+    return NextResponse.json({error:false,course},{status:200})
 
 }

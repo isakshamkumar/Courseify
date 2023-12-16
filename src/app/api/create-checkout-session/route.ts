@@ -1,38 +1,64 @@
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from 'stripe';
+
 const stripe = new Stripe("sk_test_51OIvAGSD2kCc8s2SYDHpuMhpgVK2IU1uVauX7vMa9Ry6MDOaHrI5cisyya3ap9WYm5G0IHf35qwAU5untJdqUTPB00iM4uhOTN");
 
+interface Course {
+  title: string;
+  description: string;
+  thumbnail: string;
+  price: number;
+}
+
+interface CheckoutSessionResponse {
+  sessionId: string;
+}
+
+interface LineItem {
+  price_data: {
+    product_data: {
+      name: string;
+      description: string;
+      images: string[];
+    };
+    unit_amount: number;
+    currency: string;
+  };
+  quantity: number;
+}
+
 export async function POST(request: NextRequest) {
-    const course = await request.json();
-    // console.log(course);
+  try {
+    const course: { course: Course } = await request.json();
     
-    const { title:name, description, thumbnail:image, price } = course.course;
+    const { title, description, thumbnail, price } = course.course;
     const amount = Math.round(price * 100); // Convert to the smallest currency unit
 
-    try {
-        const session = await stripe.checkout.sessions.create({
-          mode: 'payment',
-          payment_method_types: ['card'],
-          line_items: [
-            {
-              price_data: {
-                product_data: {
-                  name: name,
-                  description: description,
-                  images: [image],
-                },
-                unit_amount: amount,
-                currency: "INR",
-              },
-              quantity: 1,
-            },
-          ],
-          success_url: `${request.headers.get('origin')}/payment/success?session_id={CHECKOUT_SESSION_ID}`,
-          cancel_url: `${request.headers.get('origin')}/payment/canceled`,
-        });
+    const lineItem: LineItem = {
+      price_data: {
+        product_data: {
+          name: title,
+          description: description,
+          images: [thumbnail],
+        },
+        unit_amount: amount,
+        currency: "INR",
+      },
+      quantity: 1,
+    };
+
+    const session = await stripe.checkout.sessions.create({
+      mode: 'payment',
+      payment_method_types: ['card'],
+      line_items: [lineItem],
+      success_url: `${request.headers.get('origin')}/payment/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${request.headers.get('origin')}/payment/canceled`,
+    });
+
+    const response: CheckoutSessionResponse = { sessionId: session.id };
     
-        return  NextResponse.json({sessionId:session.id});
-      } catch (error) {
-        return new Response(JSON.stringify({ error: { message: error.message } }), { status: 400 });
-      }
+    return NextResponse.json(response);
+  } catch (error) {
+    return new Response(JSON.stringify({ error: { message: error } }), { status: 400 });
+  }
 }

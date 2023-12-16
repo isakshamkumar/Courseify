@@ -1,10 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "../../../../../prisma/client";
 import { headers } from "next/headers";
+import { Course } from "@prisma/client";
 export async function GET(request: NextRequest) {
-  console.log("hi");
+  
   const headersList = headers();
-  const userId = headersList.get("userId").toString();
+  const userId:string|null= headersList.get("userId").toString() ;
+  if(!userId){
+    return NextResponse.json({error:true,message:"User Id Required"},{status:400})
+  }
 
   // console.log(userId);
 
