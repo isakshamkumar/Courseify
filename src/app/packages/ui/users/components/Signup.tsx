@@ -1,22 +1,33 @@
-'use client'
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import RegisterButton from "../../common/RegisterButton";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
-const Signup = ({role}:{role:string}) => {
-  const session=useSession()
-  const router=useRouter()
-  if(session?.data?.user){
-    router.push('/home')
-
+const Signup = ({ role }: { role: string }) => {
+  
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+  });
+  const session = useSession();
+  const router = useRouter();
+  if (session?.data?.user) {
+    router.push("/home");
   }
-  const handleSignup=async(body)=>{
-    
-    
+  console.log(formData);
+  const handleSignup = async (e: any) => {
+    // console.log(e.target.name);
 
-
-  }
+    setFormData((prevData) => {
+      return {
+        ...prevData,
+        [e.target.name]: e.target.value,
+      };
+    });
+  };
   return (
     <section className="bg-white">
       <div className="lg:grid lg:min-h-screen lg:grid-cols-12">
@@ -53,7 +64,7 @@ const Signup = ({role}:{role:string}) => {
               Signup Below as {role}
             </p>
 
-            <form action="#" className="mt-8 grid grid-cols-6 gap-6">
+            <div className="mt-8 grid grid-cols-6 gap-6">
               <div className="col-span-6 sm:col-span-3">
                 <label
                   htmlFor="FirstName"
@@ -65,7 +76,8 @@ const Signup = ({role}:{role:string}) => {
                 <input
                   type="text"
                   id="FirstName"
-                  name="first_name"
+                  name="firstName"
+                  onChange={(e) => handleSignup(e)}
                   className="mt-1 w-full h-12 rounded-md p-4 font-medium border-gray-200 bg-gray-100 text-sm text-gray-700 shadow-sm"
                 />
               </div>
@@ -79,9 +91,10 @@ const Signup = ({role}:{role:string}) => {
                 </label>
 
                 <input
+                  onChange={(e) => handleSignup(e)}
                   type="text"
                   id="LastName"
-                  name="last_name"
+                  name="lastName"
                   className=" p-4 font-medium mt-1 w-full h-12 rounded-md border-gray-200 bg-gray-100 text-sm text-gray-700 shadow-sm"
                 />
               </div>
@@ -96,6 +109,7 @@ const Signup = ({role}:{role:string}) => {
 
                 <input
                   type="email"
+                  onChange={(e) => handleSignup(e)}
                   id="Email"
                   name="email"
                   className="p-4 font-medium mt-1 w-full h-12 rounded-md border-gray-200 bg-gray-100 text-sm text-gray-700 shadow-sm"
@@ -112,6 +126,7 @@ const Signup = ({role}:{role:string}) => {
 
                 <input
                   type="password"
+                  onChange={(e) => handleSignup(e)}
                   id="Password"
                   name="password"
                   className="p-4 font-medium mt-1 w-full h-12 rounded-md border-gray-200 bg-gray-100 text-sm text-gray-700 shadow-sm"
@@ -134,27 +149,29 @@ const Signup = ({role}:{role:string}) => {
                 />
               </div>
 
-      
-
               <div className="col-span-6">
                 <p className="text-sm text-gray-500">
                   By creating an account, you agree to our
                   <a href="#" className="text-gray-700 underline">
-                   {" "} terms and conditions {" "}
+                    {" "}
+                    terms and conditions{" "}
                   </a>
                   and
                   <a href="#" className="text-gray-700 underline">
-                  {" "}privacy policy{" "}
+                    {" "}
+                    privacy policy{" "}
                   </a>
                   .
                 </p>
               </div>
-             <RegisterButton role={role.toLocaleLowerCase()} method="Signup"/>
-             <button onClick={()=>signIn('github')}>Login With Github</button>
-             <button onClick={()=>signIn('google')}>Login With Google</button>
-              
-              
-            </form>
+              <RegisterButton formData={formData} role={role.toLocaleLowerCase()} method="Signup" />
+              <button onClick={() => signIn("github")}>
+                Login With Github
+              </button>
+              <button onClick={() => signIn("google")}>
+                Login With Google
+              </button>
+            </div>
           </div>
         </main>
       </div>

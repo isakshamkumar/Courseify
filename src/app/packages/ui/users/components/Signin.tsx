@@ -1,7 +1,31 @@
-import React from 'react'
+"use client"
+import React, { useState } from 'react'
 import RegisterButton from '../../common/RegisterButton'
+import { signIn, useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 
 const Signin = ({role}:{role:string}) => {
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+  console.log(formData);
+  
+  const session = useSession();
+  const router = useRouter();
+  if (session?.data?.user) {
+    router.push("/home");
+  }
+  const handleSignin = async (e: any) => {
+    // console.log(e.target.name);
+
+    setFormData((prevData) => {
+      return {
+        ...prevData,
+        [e.target.name]: e.target.value,
+      };
+    });
+  };
   return (
     <section className="bg-white">
     <div className="lg:grid lg:min-h-screen lg:grid-cols-12">
@@ -31,45 +55,15 @@ const Signin = ({role}:{role:string}) => {
           </a>
 
           <h1 className="mt-6 text-2xl font-bold text-gray-900 sm:text-3xl md:text-4xl">
-            Welcome to Courseify 🦑
+            Welcome Back! 🦑
           </h1>
 
           <p className="mt-4  text-xl underline leading-relaxed text-gray-500">
             Signin Below as {role}
           </p>
 
-          <form action="#" className="mt-8 grid grid-cols-6 gap-6">
-            <div className="col-span-6 sm:col-span-3">
-              <label
-                htmlFor="FirstName"
-                className="block text-sm font-medium text-gray-700"
-              >
-                First Name
-              </label>
-
-              <input
-                type="text"
-                id="FirstName"
-                name="first_name"
-                className="mt-1 w-full h-12 rounded-md p-4 font-medium border-gray-200 bg-gray-100 text-sm text-gray-700 shadow-sm"
-              />
-            </div>
-
-            <div className="col-span-6 sm:col-span-3">
-              <label
-                htmlFor="LastName"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Last Name
-              </label>
-
-              <input
-                type="text"
-                id="LastName"
-                name="last_name"
-                className=" p-4 font-medium mt-1 w-full h-12 rounded-md border-gray-200 bg-gray-100 text-sm text-gray-700 shadow-sm"
-              />
-            </div>
+          <div className="mt-8 grid grid-cols-6 gap-6">
+           
 
             <div className="col-span-6">
               <label
@@ -81,6 +75,7 @@ const Signin = ({role}:{role:string}) => {
 
               <input
                 type="email"
+                onChange={(e)=>handleSignin(e)}
                 id="Email"
                 name="email"
                 className="p-4 font-medium mt-1 w-full h-12 rounded-md border-gray-200 bg-gray-100 text-sm text-gray-700 shadow-sm"
@@ -98,6 +93,7 @@ const Signin = ({role}:{role:string}) => {
               <input
                 type="password"
                 id="Password"
+                onChange={(e)=>handleSignin(e)}
                 name="password"
                 className="p-4 font-medium mt-1 w-full h-12 rounded-md border-gray-200 bg-gray-100 text-sm text-gray-700 shadow-sm"
               />
@@ -135,8 +131,10 @@ const Signin = ({role}:{role:string}) => {
               </p>
             </div>
 
-            <RegisterButton method="Signin" role={role.toLocaleLowerCase()}/>
-          </form>
+            <RegisterButton formData={formData} method="Signin" role={role.toLocaleLowerCase()}/>
+            <button onClick={()=>signIn('github')}>Login With Github</button>
+             <button onClick={()=>signIn('google')}>Login With Google</button>
+          </div>
         </div>
       </main>
     </div>

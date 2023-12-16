@@ -16,6 +16,8 @@ const SideMenu = () => {
     signOut()
   }
   // alert(' sidemenu')
+  console.log(session,'from side menuuuuuuuuuuuuuuuuu');
+  
   
   if (session?.data?.user) {
     return (
@@ -24,7 +26,7 @@ const SideMenu = () => {
           <div className="inline-flex h-16 w-full items-center justify-center">
             <div className=" group relative flex justify-center rounded">
               <span className="grid h-10 w-10 place-content-center rounded-lg bg-gray-100 text-xs text-gray-600">
-                {session.data.user.name.charAt(0)}
+                {session?.data?.user?.name?.charAt(0)}
               </span>
               <span className="absolute start-full top-1/2 ms-4 -translate-y-1/2 rounded bg-gray-900 px-2 py-1.5 text-xs font-medium text-white opacity-0 group-hover:opacity-100">
                 {session.data.user.name}

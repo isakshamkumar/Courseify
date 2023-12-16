@@ -20,15 +20,15 @@ export async function POST(request: NextRequest) {
     return new NextResponse('Missing Fields', { status: 400 });
   }
 
-  const existingUser: User | null = await prisma.user.findUnique({
-    where: {
-      email,
-    },
-  });
+  // const existingUser: User | null = await prisma.user.findUnique({
+  //   where: {
+  //     email,
+  //   },
+  // });
 
-  if (existingUser) {
-    return NextResponse.json({ error: true, message: 'User Already Exists with Provided Email' }, { status: 400 });
-  }
+  // if (existingUser) {
+  //   return NextResponse.json({ error: true, message: 'User Already Exists with Provided Email' }, { status: 400 });
+  // }
 
   const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -36,6 +36,7 @@ export async function POST(request: NextRequest) {
     data: {
       firstName,
       lastName,
+      name:firstName,
       email,
       hashedPassword,
     },
