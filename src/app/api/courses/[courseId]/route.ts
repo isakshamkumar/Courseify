@@ -6,7 +6,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { Course } from "@prisma/client";
 
 export async function GET(request: NextRequest) {
-    const pathname:string|undefined = request?.nextUrl?.pathname;
+    const pathname = request?.nextUrl?.pathname;
 
 
 const courseId:string|undefined= pathname.split('/').pop()

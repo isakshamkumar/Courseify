@@ -1,11 +1,10 @@
 "use client";
-// Import necessary libraries and components
+
 
 import Video from "@/app/packages/ui/users/components/Video";
 import VideoSideBar from "@/app/packages/ui/users/components/VideoSideBar";
 import React, { useEffect, useState } from "react";
-import { FiVideo } from "react-icons/fi"; // Import video icon from react-icons library
-import ReactPlayer from "react-player"; // Import ReactPlayer for video playback
+
 
 type Params = {
   params: {
@@ -43,7 +42,7 @@ const Page =  ({ params: { courseId } }: Params) => {
 
         return videos;
       };
-      const populateVideoKeys = async (video) => {
+      const populateVideoKeys = async (video:any) => {
         const response = await fetch(`/api/video/${video.videoUrl}`);
         console.log(video, "videoooooooooooooooooo");
 

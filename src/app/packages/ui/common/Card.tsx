@@ -15,8 +15,8 @@ const Card = ({
 }) => {
   const router= useRouter()
   return (
-    <div className="w-full sm:w-1/2 md:w-[250px] lg:w-[300px]" style={{border:'2px solid purple'}}>
-      <article className="flex flex-col h-full overflow-hidden rounded-lg border border-gray-100 bg-white shadow-sm transition-transform transform hover:shadow-2xl hover:scale-[1.01]">
+    <div className="w-full sm:w-1/2 md:w-[250px] lg:w-[300px]" >
+      <article className="flex flex-col h-full overflow-hidden rounded-lg border border-gray-100 bg-white shadow-sm transition-transform transform hover:shadow-lg hover:scale-[1.01]">
         <img
           alt="Office"
           src={thumbnail}

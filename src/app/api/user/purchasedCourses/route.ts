@@ -5,7 +5,7 @@ import { Course } from "@prisma/client";
 export async function GET(request: NextRequest) {
   
   const headersList = headers();
-  const userId:string|null= headersList.get("userId").toString() ;
+  const userId:string= headersList.get("userId")?.toString() || ''  ;
   if(!userId){
     return NextResponse.json({error:true,message:"User Id Required"},{status:400})
   }
@@ -24,7 +24,7 @@ export async function GET(request: NextRequest) {
         where: { id: userId },
         select: { purchasedCourses: true },
       });
-    // console.log(purchasedCourses);
+    console.log(purchasedCourses,'purchasedCOurse from backend');
 
   return NextResponse.json({ purchasedCourses });
 }

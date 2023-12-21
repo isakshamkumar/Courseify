@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 // import { prod } from "../users/components/Home";
 
-const Pagination = ({
+const Pagination =async ({
   products,
   pageNumber,
   setPageNumber,
 }: {
-  products: any[];
+  products: any;
   pageNumber: number;
   setPageNumber: React.Dispatch<React.SetStateAction<number>>;
 }) => {
-  console.log(pageNumber, "from pagin");
-  console.log(typeof pageNumber);
+  // console.log(pageNumber, "from pagin");
+  // console.log(typeof pageNumber);
 
   //ONCLICK WINDOW POSITION SHIFT UP
   const handlePrev = () => {
@@ -32,13 +32,14 @@ const Pagination = ({
       top: 500,
       behavior: "smooth", // You can use 'auto' for instant scrolling
     });
-    if (pageNumber < products.length / 6) {
+    if (pageNumber < courses.courses.length / 6) {
       // setselected(pageNumber + 1);
       setPageNumber(pageNumber + 1);
     } else {
       return;
     }
   };
+  const courses=await products
   // alert(selected);
   // console.log(Array(products.length / 6));  //empty array but lenght is 5
 
@@ -63,7 +64,7 @@ const Pagination = ({
           </svg>
         </button>
       </li>
-      {[...Array(Math.ceil(products.length / 6))].map((ele, index) => (
+      {[...Array(Math.ceil(courses.courses.length / 6))].map((ele, index) => (
         <li>
           <button
             onClick={() => {

@@ -1,79 +1,51 @@
-// courseSlice.js
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-// import axios from 'axios';
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { User } from "@prisma/client";
 
-// Define the initial state
-const initialState = {
-  courses: [],
-  course: null,
-  loading: false,
+interface UserState {
+  user: User | null;
+  status: 'idle' | 'loading' | 'succeeded' | 'failed';
+  error: string | null;
+}
+
+export const fetchUserData = createAsyncThunk<User>('user/fetchUser', async () => {
+  try {
+    const response = await fetch('/api/me');
+    if (!response.ok) throw new Error("Error fetching Data for User");
+    const data = await response.json();
+    return data.user;
+  } catch (error) {
+    console.error("Error Fetching User Data", error);
+    throw error; 
+    // Propagate the error to handle it in the component or where it's called
+  }
+});
+
+const initialState: UserState = {
+  user: null,
+  status: 'idle',
   error: null,
 };
 
-// Define the asynchronous thunk to fetch all courses
-export const fetchAllCourses = createAsyncThunk('courses/fetchAllCourses', async () => {
-  try {
-    const response = await axios.get('/api/courses'); // Replace with your API endpoint
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
-});
-
-// Define the asynchronous thunk to fetch a particular course
-export const fetchCourseById = createAsyncThunk('courses/fetchCourseById', async (courseId) => {
-  try {
-    const response = await axios.get(`/api/courses/${courseId}`); // Replace with your API endpoint
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
-});
-
-// Define the course slice
-const courseSlice = createSlice({
-  name: 'courses',
+export const userSlice = createSlice({
+  name: "user",
   initialState,
-  reducers: {
-    // You can define additional synchronous actions here if needed
-  },
+  reducers: {},
   extraReducers: (builder) => {
-    // Handle fetchAllCourses fulfilled action
-    builder.addCase(fetchAllCourses.fulfilled, (state, action) => {
-      state.courses = action.payload;
-      state.loading = false;
+    builder.addCase(fetchUserData.pending, (state) => {
+      state.status = 'loading';
       state.error = null;
     });
-
-    // Handle fetchAllCourses pending and rejected actions
-    builder.addCase(fetchAllCourses.pending, (state) => {
-      state.loading = true;
-    });
-    builder.addCase(fetchAllCourses.rejected, (state, action) => {
-      state.loading = false;
-      state.error = action.error.message;
-    });
-
-    // Handle fetchCourseById fulfilled action
-    builder.addCase(fetchCourseById.fulfilled, (state, action) => {
-      state.course = action.payload;
-      state.loading = false;
+    builder.addCase(fetchUserData.fulfilled, (state, action: PayloadAction<User>) => {
+      state.status = 'succeeded';
       state.error = null;
+      state.user = action.payload;
     });
-
-    // Handle fetchCourseById pending and rejected actions
-    builder.addCase(fetchCourseById.pending, (state) => {
-      state.loading = true;
-    });
-    builder.addCase(fetchCourseById.rejected, (state, action) => {
-      state.loading = false;
-      state.error = action.error.message;
+    builder.addCase(fetchUserData.rejected, (state) => {
+      state.status = 'failed';
+      state.error = null;
     });
   },
 });
 
-// Export the asynchronous thunk functions
-export { fetchAllCourses, fetchCourseById };
-
-// Export the course slice reducer
-export default courseSlice.reducer;
+export const userActions = userSlice.actions;
+export default userSlice.reducer;

@@ -4,7 +4,7 @@ import { getServerSession } from "next-auth";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useEffect } from "react";
 
 const SideMenu = () => {
   const router=useRouter()
@@ -15,6 +15,19 @@ const SideMenu = () => {
     router.push('/home')
     signOut()
   }
+  useEffect(()=>{
+    const meHandler=async()=>{
+      const response=await fetch('/api/me');
+      const data=await response.json()
+      console.log(data,'dataaaaaaaaaaaaaa');
+      //currently storing in localstorage, then move in redux
+      localStorage.setItem("userId",data.user.id)
+      
+
+    }
+    meHandler()
+
+  },[session])
   // alert(' sidemenu')
   console.log(session,'from side menuuuuuuuuuuuuuuuuu');
   

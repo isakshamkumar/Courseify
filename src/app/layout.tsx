@@ -6,9 +6,8 @@ import AuthProvider from "./packages/providers/AuthProvider";
 import CheckSession from "./packages/providers/CheckSession";
 import CheckOnlineStatus from "./packages/providers/CheckOnlineStatus";
 import { Suspense } from "react";
-import Loading from './loading'
-
-
+import Loading from "./loading";
+import StoreProvider from "./packages/providers/StoreProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,8 +24,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-       <Suspense fallback={<Loading/>}>
-
+        {/* <Suspense fallback={<Loading/>}> */}
+        <StoreProvider>
           <AuthProvider>
             {/* <CheckSession> */}
 
@@ -40,8 +39,9 @@ export default function RootLayout({
               {/* </CheckSession> */}
             </CheckOnlineStatus>
           </AuthProvider>
-        
-       </Suspense>
+        </StoreProvider>
+
+        {/* </Suspense> */}
       </body>
     </html>
   );
