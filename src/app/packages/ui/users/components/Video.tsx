@@ -2,113 +2,76 @@
 import React, { useEffect, useState } from "react";
 import ReactPlayer from "react-player";
 import { Toaster, toast } from 'react-hot-toast';
-import { useParams } from "next/navigation";
+// import { useParams } from "next/navigation";
 import { getVideoWithPopulatedKeys } from "@/app/packages/lib/getVideosPopulated";
+import StudySpinner from "../../common/Spinner2";
+import { useSelector } from "react-redux";
+import { RootState } from "@/app/packages/redux/store";
+import { useParams } from "next/navigation";
+import { getVideoWithKeys } from "@/app/packages/lib/getVideos";
 
 
-const Video = async({
-  //  setselectedVideo,
+
+
+const Video = ({
+   setselectedVideo,
   //@ts-ignore
-   selectedVideo,
+   videos,
+   setvideos,
+
+   selectedVideo
   //  setvideos
     // ,setCourseProgress
-  }) => {
-  const params=useParams()
-  console.log(params,'params');
-  // const[video,setvideo]=useState(null)
+  }:{videos:any,selectedVideo:any,setselectedVideo:React.Dispatch<number>,setvideos:React.Dispatch<any>}) => {
+    const {courseId} = useParams()
+    const userId:any = useSelector<RootState>((state) => state.user.user?.id);
+  const [video,setvideo]=useState<any>(null)
+  const [mounted, setMounted] = useState(false);
+
+   useEffect(()=>{
+    setMounted(true)
+    const fetchVideo=async()=>{
+
+      const video= await getVideoWithPopulatedKeys(videos)
+      setvideo(video)
+    }
+    fetchVideo()
+   },[])
+
   
-  // const [mounted, setMounted] = useState(false);
-  // const handleEnded = async () => {
+  if(mounted && !video) return <div className="h-screen justify-center items-center"><StudySpinner/></div>
+  if(mounted && video){
+
+    const v= video[selectedVideo]
+    console.log(v,'selectedVideooooooooooo');
+    const handleEnded=async()=>{
+      if(!v.completed){
+      toast.success('Updating Video and Course Progress')
+        const response = await fetch("/api/user/updateVideoProgress", {
+                method: "POST",
+                body: JSON.stringify({
+                  videoId: v.id,
+                  userId,
+                  courseId:courseId.toString()
+                }),
+              });
+              const data=await response.json()
+        //@ts-ignore
+        setselectedVideo(prev=>prev+1)
+        // const videos=data.courseVideos
+       
+        const random=async(data:any)=>{
+          return data
+        }
+        const videowithkeyspromise= random(data)
+        setvideos(videowithkeyspromise)
+        const populatedVideos= await getVideoWithPopulatedKeys(videowithkeyspromise) 
+        setvideo(populatedVideos)
+        toast.success("Successfully Updated Course and Video Progress!")
+      }
+    }
     
-  //   // alert(`video ended for ${selectedVideo.title}`);
-  //   if(!selectedVideo.completed){
 
-  //     const response = await fetch("/api/user/updateVideoProgress", {
-  //       method: "POST",
-  //       body: JSON.stringify({
-  //         videoId: selectedVideo.id,
-  //         userId:"6573562edb4374c30a75ee00",
-  //         courseId:params.courseId.toString()
-  //       }),
-  //     });
-  //     setselectedVideo(prevVideo => ({
-  //       ...prevVideo,
-  //       completed: true
-  //     }));
-     
-  //     // const data=await response.json()
-  //     // console.log(data);
-  //     const getVideosHandler = async () => {
-  //       const response = await fetch("/api/video", {
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           courseId: params.courseId.toString(),
-  //         },
-  //       });
-  //       if (!response.ok) {
-  //         alert("hi");
-  //       }
-  //       // console.log('videos get handler caloing down');
-
-  //       const videoswithKeys = await response.json();
-  //       console.log(videoswithKeys, "video with keys");
-  //       setCourseProgress(videoswithKeys.courseProgress);
-
-  //       const videos = await Promise.all(
-  //         videoswithKeys.courseVideos.map((video) => populateVideoKeys(video))
-  //       );
-  //       toast('Course Progress Updated Successfully!✅')
-  //       console.log(videos,'freshhhhhhhhhhhhhhhh');
-        
-  //       setvideos(videos)
-  //       const videoIndex= videos.findIndex(video=>video.id===selectedVideo.id)
-  //       // console.log(videoIndex,'videoIndex');
-        
-  //       setselectedVideo((prevVideo=>{
-  //         const videoIndex= videos.findIndex(video=>video.title===prevVideo.title)
-  //         return videos[videoIndex+1]
-
-          
-  //       }))
-  //     };
-  //     const populateVideoKeys = async (video) => {
-  //       const response = await fetch(`/api/video/${video.videoUrl}`);
-  //       console.log(video, "videoooooooooooooooooo");
-
-  //       const videoUrl = await response.json();
-  //       // console.log(videoUrl.url);
-  //       return {
-  //         id: video.id,
-  //         title: video.title,
-  //         url: videoUrl.url,
-  //         description: video.course.description,
-  //         completed:
-  //           video.userProgress.length > 0
-  //             ? video.userProgress[0].completed
-  //             : false,
-  //       };
-  //     };
-  //     // setvideos(data.courseVideos,'coursevideosssssssssssssss')
-  //     getVideosHandler()
-  //   }
-    
-  // };
-  // useEffect(() => {
-  //   const renderVideo=async()=>{
-  //     const video= await selectedVideo
-  //     const v= video[0]
-  //     setvideo(v)
-
-  //   }
-  //   setMounted(true);
-  //   renderVideo()
-  // }, []);
-  ;console.log(selectedVideo,'selected videosssssssssss');
-   
-  const video= await getVideoWithPopulatedKeys(selectedVideo)
-  // const videos= await video
-  const v= video[0]
- 
     return (
       
       <div className="flex flex-col gap-8">
@@ -121,20 +84,21 @@ const Video = async({
             width="100%"
             height="100%"
             className="absolute top-0 left-0 w-full h-full"
-            // onEnded={handleEnded}
+            onEnded={handleEnded}
           />
         </div>
-        {/* <div>
-          <button disabled={selectedVideo.completed}
-          //  onClick={handleEnded}
-            className={`bg-green-500 text-white px-4 py-2 rounded-md mb-2`}>
-            {!selectedVideo.completed ? "Mark as Complete" : "Completed"}
+        <div>
+          <button type="button" 
+          // disabled={true}
+           onClick={handleEnded}
+            className={`${!v.completed?'bg-green-500':'bg-red-700'} text-white px-4 py-2 rounded-md mb-2   `}>
+            {!v.completed ? "Mark as Complete" : "Completed"}
           </button>
-          <p className="text-gray-600 mb-2">{selectedVideo.description}</p>
-        </div> */}
+          <p className="text-gray-600 mb-2">{v.description}</p>
+        </div>
       </div>
     );
-  
+  } 
   
 };
 

@@ -15,7 +15,7 @@ export async function GET(request: NextRequest) {
   // Extract the courseId and userId from the request headers
   const headersList = headers();
   const courseId: string = headersList.get("courseId")?.toString() || "";
-  let userId: string = "6573562edb4374c30a75ee00";
+  let userId: string = headersList.get("userId")?.toString() || "";
 
   // Check if the courseId is provided
   if (!courseId) {

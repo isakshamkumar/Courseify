@@ -1,26 +1,43 @@
 "use client"
-import React  from "react";
+import React, { useEffect, useState }  from "react";
 import { RootState } from "@/app/packages/redux/store";
 import { useSelector } from "react-redux";
 import Card from "../../common/Card";
 import { userPurchasedCourses } from "@/app/packages/lib/getPurchasedCourses";
 import { Course } from "@prisma/client";
+import Spinner from "../../common/Spinner";
+import StudySpinner from "../../common/Spinner2";
 
 type Props = {};
 
-const PurchasedCourses = async(props: Props) => {
+const PurchasedCourses = (props: Props) => {
   const userId = useSelector<RootState>((state) => state.user.user?.id);
-  // const[purchasedCourses,setpurchasedCourses]=useState([])
+  const [purchasedCourses, setPurchasedCourses] = useState([]);
+  const [loading,setloading]=useState(false)
+
+  useEffect(() => {
+    
+    const fetchCourses = async () => {
+      setloading(true)
+      let courses = await userPurchasedCourses(userId);
+      setPurchasedCourses(courses.purchasedCourses.purchasedCourses);
+      setloading(false)
+    };
+
+    fetchCourses();
+  }, [userId]);
 
     // const fetchCourse = async (userId: any) => {
-        let Courses = await userPurchasedCourses(userId);
-        let purchasedCourses=Courses.purchasedCourses.purchasedCourses
+        // let Courses = await userPurchasedCourses(userId);
+        // let purchasedCourses=Courses.purchasedCourses.purchasedCourses
         // setpurchasedCourses(Courses.purchasedCourses.purchasedCourses)
     //  };
     //  fetchCourse(userId)
 
 
-
+if(loading) return <div className="h-full flex flex-col justify-center gap-4 items-center">
+  <StudySpinner/> Getting Purchased Courses..
+</div> 
   
   return (
     <>

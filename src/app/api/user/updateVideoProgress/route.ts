@@ -57,8 +57,13 @@ export async function POST(req: NextRequest) {
         },
       },
     });
-
-    return NextResponse.json({ courseVideos });
+    const completedVideos = courseVideos.filter((video) => video.userProgress[0]?.completed).length;
+    const totalVideos = courseVideos.length;
+    const courseProgress = totalVideos > 0 ? (completedVideos / totalVideos) * 100 : 0;
+  
+    // Return the course videos and progress
+    return NextResponse.json({ courseVideos, courseProgress });
+ 
   } catch (error) {
     console.error("Error in POST request:", error);
     return NextResponse.json({ msg: "Internal Server Error" }, { status: 500 });
