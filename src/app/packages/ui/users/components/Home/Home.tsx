@@ -18,6 +18,7 @@ const Home = async () => {
   console.log(pageNumber, "from home");
 
   const products = getCourses();
+  
  
 
   return (

@@ -9,9 +9,13 @@ interface UserState {
 
 export const fetchUserData = createAsyncThunk<User>('user/fetchUser', async () => {
   try {
+    console.log('startingggggggggggggggggggggg');
+    
     const response = await fetch('/api/me');
     if (!response.ok) throw new Error("Error fetching Data for User");
     const data = await response.json();
+    console.log(data,'thunkkkkkkkkkkkkkkkkkkkk');
+    
     return data.user;
   } catch (error) {
     console.error("Error Fetching User Data", error);
@@ -43,6 +47,7 @@ export const userSlice = createSlice({
     builder.addCase(fetchUserData.rejected, (state) => {
       state.status = 'failed';
       state.error = null;
+      state.user=null
     });
   },
 });

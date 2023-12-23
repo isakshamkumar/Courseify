@@ -5,33 +5,30 @@ import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
+import { useDispatch} from "react-redux";
+import { fetchUserData } from "../../redux/UserSlice";
+import { AppDispatch } from "../../redux/store";
 
 const SideMenu = () => {
-  const router=useRouter()
+  const router = useRouter();
   const session = useSession();
   // const newSession=getServerSession(authOptions)
-  const handleSignout=()=>{
-    // alert("signout")
-    router.push('/home')
-    signOut()
-  }
-  useEffect(()=>{
-    const meHandler=async()=>{
-      const response=await fetch('/api/me');
-      const data=await response.json()
-      console.log(data,'dataaaaaaaaaaaaaa');
-      //currently storing in localstorage, then move in redux
-      localStorage.setItem("userId",data.user.id)
-      
-
-    }
-    meHandler()
-
-  },[session])
-  // alert(' sidemenu')
-  console.log(session,'from side menuuuuuuuuuuuuuuuuu');
+  const handleSignout = () => {
+    
+    router.push("/home");
+    signOut();
+  };
+  const dispatch = useDispatch<AppDispatch>();
   
+
   
+
+
+    dispatch(fetchUserData());
+
+ 
+  console.log(session, "from side menuuuuuuuuuuuuuuuuu");
+
   if (session?.data?.user) {
     return (
       <div className=" fixed z-50 flex h-screen w-20 flex-col justify-between border-e bg-white">
@@ -81,7 +78,7 @@ const SideMenu = () => {
               </div>
 
               <ul className="space-y-8 border-t border-gray-100 pt-32">
-                <li >
+                <li>
                   <Link
                     href="/home"
                     className="group relative flex justify-center rounded px-2 py-1.5 text-gray-500 hover:bg-gray-50 hover:text-gray-700"
@@ -191,6 +188,7 @@ const SideMenu = () => {
 
         <div className="sticky inset-x-0 bottom-0 border-t border-gray-100 bg-white p-2">
           <button
+          type="button"
             onClick={handleSignout}
             className="group relative flex w-full justify-center rounded-lg px-2 py-1.5 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
           >
