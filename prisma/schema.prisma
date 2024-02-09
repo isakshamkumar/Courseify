@@ -22,7 +22,8 @@ model User {
   sessions       Session[]
   accounts       Account[]
   videoProgress UserVideoProgress[]
-  purchasedCourses Course[]
+  purchases Purchase[]
+  payments Payment[]
  
   //everc course should not directly have a completed key bcoz multiple users can purchass the same course and then the meter will collide for all
 }
@@ -63,8 +64,7 @@ model Course {
   duration          String
   category          String[]
   // ???? user should be array?
-  userId             String? @db.ObjectId
-  user              User? @relation(fields: [userId],references: [id])
+  purchases Purchase[]
   instructorId      String @db.ObjectId
   instructor        Admin    @relation(fields: [instructorId], references: [id])
   reviews           Int?
@@ -75,6 +75,7 @@ model Course {
   updatedAt         DateTime @updatedAt
   rating            Rating?  @relation(fields: [ratingId], references: [id])
   ratingId          String?  @db.ObjectId @unique
+  payment Payment[]
 
 }
 
@@ -114,7 +115,30 @@ model UserVideoProgress {
 
   @@unique([userId, videoId])
 }
+model Payment{
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  userId String @db.ObjectId
+  user  User @relation(fields: [userId], references: [id])
+  courseId String @db.ObjectId
+  course Course @relation(fields: [courseId], references: [id])
+  status  String?
+ paymentMethod String
+ currency String
 
+   createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
 
+model Purchase {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  userId   String @db.ObjectId
+  courseId String @db.ObjectId
+  user     User   @relation(fields: [userId], references: [id])
+  course   Course @relation(fields: [courseId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
+  @@index([userId])
+  @@index([courseId])
+}
 //now think of change in routes,db,.....

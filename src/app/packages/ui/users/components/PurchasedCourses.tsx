@@ -20,7 +20,9 @@ const PurchasedCourses = (props: Props) => {
     const fetchCourses = async () => {
       setloading(true)
       let courses = await userPurchasedCourses(userId);
-      setPurchasedCourses(courses.purchasedCourses.purchasedCourses);
+      console.log(courses,'from purchased Coursesssssssssssssssssssssssssssssssssssssss');
+      
+      setPurchasedCourses(courses.purchasedCourses.purchases);
       setloading(false)
     };
 
@@ -42,15 +44,16 @@ if(loading) return <div className="h-full flex flex-col justify-center gap-4 ite
   return (
     <>
    {purchasedCourses?.length!==0 &&  <div
-      className="grid w-full grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-4 md:gap-8 lg:gap-12 "
+      className="p-32 grid w-full grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-4 md:gap-8 lg:gap-12 "
       // style={{ border: "2px solid red" }}
     >
       {purchasedCourses?.map((course: any) => (
+        // eslint-disable-next-line react/jsx-key
         <Card
-          navigateTo={`/user/purchasedCourses/${course.id}`}
-          thumbnail={course.thumbnail}
-          description={course.description}
-          title={course.title}
+          navigateTo={`/user/purchasedCourses/${course.course.id}`}
+          thumbnail={course.course.thumbnail}
+          description={course.course.description}
+          title={course.course.title}
         />
       ))}
     </div> }

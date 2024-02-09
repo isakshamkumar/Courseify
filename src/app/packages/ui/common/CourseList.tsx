@@ -13,8 +13,9 @@ const CourseList:React.FC<CourseListProps> = async({products,pageNumber}) => {
   
   return (
     <div className=" border-4 rounded-2xl flex flex-wrap justify-center items-center p-16 gap-10 ">
-    {AvailableCourses?.slice(pageNumber * 6 - 6, pageNumber * 6).map((prod:any) => (
+    {AvailableCourses?.slice(pageNumber * 6 - 6, pageNumber * 6).map((prod:any,i:number) => (
       <Card
+      key={i}
         navigateTo={`/course/${prod.id}`}
         thumbnail={prod.thumbnail}
         description={prod.description}

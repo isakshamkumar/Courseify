@@ -65,7 +65,7 @@ const Pagination =async ({
         </button>
       </li>
       {[...Array(Math.ceil(courses.courses.length / 6))].map((ele, index) => (
-        <li>
+        <li key={index}>
           <button
             onClick={() => {
               setPageNumber(index + 1);

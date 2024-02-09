@@ -4,6 +4,7 @@ import Stripe from 'stripe';
 const stripe = new Stripe("sk_test_51OIvAGSD2kCc8s2SYDHpuMhpgVK2IU1uVauX7vMa9Ry6MDOaHrI5cisyya3ap9WYm5G0IHf35qwAU5untJdqUTPB00iM4uhOTN");
 
 interface Course {
+  id:string,
   title: string;
   description: string;
   thumbnail: string;
@@ -30,8 +31,12 @@ interface LineItem {
 export async function POST(request: NextRequest) {
   try {
     const course: { course: Course } = await request.json();
+    // console.log(course,'courseeeeeeeeeeeeeeeeeeeeeeeeeeeee');
     
-    const { title, description, thumbnail, price } = course.course;
+    
+    const {id, title, description, thumbnail, price } = course.course;
+    console.log(id,'iddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd');
+    
     const amount = Math.round(price * 100); // Convert to the smallest currency unit
 
     const lineItem: LineItem = {
@@ -53,6 +58,9 @@ export async function POST(request: NextRequest) {
       line_items: [lineItem],
       success_url: `${request.headers.get('origin')}/payment/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${request.headers.get('origin')}/payment/canceled`,
+      metadata:{
+courseId:id
+      }
     });
 
     const response: CheckoutSessionResponse = { sessionId: session.id };

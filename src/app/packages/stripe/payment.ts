@@ -12,6 +12,10 @@ import { loadStripe } from "@stripe/stripe-js";
 // };
 
 export const makePayment = async (course: any) => {
+  console.log('makePaymenttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt');
+  
+  console.log(course,'courseeeeee');
+  
   const stripe = await loadStripe(
     "pk_test_51OIvAGSD2kCc8s2SsDpoYtNUZX7rsHp0fkrTUPcRwlDgVGtY6ytSUOeXryDsmbtW4xr6aBsaaMa4A6SgFBPYmwDP00MiQpKuP7"
   );
@@ -40,8 +44,8 @@ export const makePayment = async (course: any) => {
     
   }
   
-  if((await result).error){
-    console.log((await result).error);
+  if((await result)?.error){
+    console.log((await result)?.error);
     
   }
 };

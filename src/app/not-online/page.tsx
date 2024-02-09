@@ -17,9 +17,9 @@ const NotOnline = () => {
           <circle cx="12" cy="12" r="10" fill="none" stroke="#ef4444" strokeWidth="3" />
         </svg>
       </div>
-      <h1 className="text-2xl font-bold mb-4 animate-bounce">Oops! You're Offline</h1>
+      <h1 className="text-2xl font-bold mb-4 animate-bounce">Oops You are Offline</h1>
       <p className="text-gray-600 animate-pulse">
-        It seems like you're offline. Please check your internet connection and try again.
+        It seems like you are offline. Please check your internet connection and try again.
       </p>
       <div className="mt-8">
        

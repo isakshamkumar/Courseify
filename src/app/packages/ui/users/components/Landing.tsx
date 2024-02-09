@@ -16,7 +16,7 @@ const Landing:React.FC<LandingPageProps> = () => {
             router.push("/home")
         }
 
-    },[session])
+    },[session,router])
     // const session=getServerSession(authOptions)
     // console.log(session,'session from landing page');
     
@@ -30,7 +30,7 @@ const Landing:React.FC<LandingPageProps> = () => {
             </h2>
 
             <p className="hidden text-gray-500 md:mt-4 md:block">
-            Discover, learn, and grow with our Course App! Dive into a variety of courses designed to boost your skills and knowledge. From tech to creativity, we've got you covered. Start your learning journey today!
+            Discover, learn, and grow with our Course App! Dive into a variety of courses designed to boost your skills and knowledge. From tech to creativity, we have got you covered. Start your learning journey today
             </p>
 
             <div className="mt-4 md:mt-8">

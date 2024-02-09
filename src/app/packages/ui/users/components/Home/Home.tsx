@@ -12,14 +12,22 @@ import CourseList from "../../../common/CourseList";
 import { getCourses } from "@/app/packages/lib/getCourses";
 import Spinner from "../../../common/Spinner";
 
-const Home = async () => {
+const Home =  () => {
  
   const [pageNumber, setPageNumber] = useState(1);
   console.log(pageNumber, "from home");
 
   const products = getCourses();
+  // const[filteredProducts,setfilteredProducts]=useState(products);
+  // console.log(products,'products');
   
- 
+//  const handleInputChange=async(value:string)=>{
+//   //@ts-ignore
+//   let fp= await filteredProducts
+//     //@ts-ignore
+//   let FP= fp.courses.map(course=>course.title.toLowerCase().includes(value))
+//   setfilteredProducts(FP)
+//  }
 
   return (
     <main>
@@ -40,13 +48,15 @@ const Home = async () => {
           <div className="mt-4 lg:mt-8 lg:grid lg:grid-cols-4 lg:items-start lg:gap-8">
             <Filters />
 
-            <SideCourses />
+            <SideCourses courses={products} />
           </div>
         </div>
       </section>
       <section>
         <Suspense fallback={<div className="h-full flex flex-col gap-2 items-center justify-center">Loading Courses...<Spinner/></div>}>
-        <Input text="Search Courses" />
+        {/* <Input  text="Search Courses" /> */}<h2 className="text-xl text-center font-light text-gray-900 sm:text-3xl">
+              Available Courses
+            </h2>
           <CourseList products={products} pageNumber={pageNumber} />
 
           <Pagination

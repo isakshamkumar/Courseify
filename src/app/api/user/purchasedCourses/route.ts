@@ -22,7 +22,11 @@ export async function GET(request: NextRequest) {
       // Fetch the user's purchased courses
       const purchasedCourses = await prisma.user.findUnique({
         where: { id: userId },
-        select: { purchasedCourses: true },
+        select: { purchases: {
+          include:{
+            course:true
+          }
+        } },
       });
     console.log(purchasedCourses,'purchasedCOurse from backend');
 
