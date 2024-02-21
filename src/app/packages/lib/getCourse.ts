@@ -1,5 +1,5 @@
 export const getCourse=async(courseId:string)=>{
-    const response=await fetch(`http://localhost:3000/api/courses/${courseId}`,{next:{revalidate:10}})
+    const response=await fetch(`/api/courses/${courseId}`,{next:{revalidate:10}})
     return response.json()
  
 }

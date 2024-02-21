@@ -67,7 +67,7 @@ export const authOptions = {
             });
             if (!existingUser && !credentials?.signin) {
               const response = await fetch(
-                "http://localhost:3000/api/user/register",
+                "/api/user/register",
                 {
                   method: "POST",
                   headers: {
