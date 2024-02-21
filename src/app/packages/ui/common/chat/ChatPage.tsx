@@ -225,6 +225,7 @@ setConnectedUsers(count.count)
         >
           {messages.map((msg, index) => (
             <li
+            key={index}
             ref={index === messages.length - 1 ? lastMessageRef : null}
               style={{
                 borderRadius:msg.holder!==userName? "1px 10px 10px 10px":'10px 1px 10px 10px',

@@ -45,7 +45,7 @@ const ChatServerMenu = (props: Props) => {
              
               <ul style={{display:'flex',flexDirection:"column",justifyContent:'center',alignItems:'center'}} className={`${!isOpen?'mt-20':'mt-1'}`}>
                 {joinedChatServerList.map((server, _i) => (
-                  <li className={`flex justify-center items-center text-lg  gap-2 h-12 my-2 hover:bg-gray-200  border border-stone-400 bg-gray-300 w-5/6 rounded-lg `}>
+                  <li key={_i} className={`flex justify-center items-center text-lg  gap-2 h-12 my-2 hover:bg-gray-200  border border-stone-400 bg-gray-300 w-5/6 rounded-lg `}>
                     {server.icon} {isOpen && server.name } 
                   </li>
                 ))}
@@ -55,7 +55,7 @@ const ChatServerMenu = (props: Props) => {
              
               <ul style={{display:'flex',flexDirection:"column",justifyContent:'center',alignItems:'center'}}>
                 {featuredChatServerList.map((server, _i) => (
-                  <li className='flex justify-center items-center text-lg  gap-2 h-12 my-2 hover:bg-gray-200  border border-stone-400 bg-gray-300 w-4/6 rounded-lg '>
+                  <li key={_i} className='flex justify-center items-center text-lg  gap-2 h-12 my-2 hover:bg-gray-200  border border-stone-400 bg-gray-300 w-4/6 rounded-lg '>
                     {server.icon} {isOpen && server.name } 
                   </li>
                 ))}
