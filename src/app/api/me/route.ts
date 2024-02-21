@@ -5,7 +5,7 @@ export async function GET(req:NextRequest){
     // console.log(req.cookies,'cookied');
     
   const token = await getToken({ req, secret: '4545454545454545454545454' })  // Use an environment variable for the secret
-//   console.log(token,'tokennnnnnn');
+  console.log(token,'tokennnnnnn');
 
     const user=await prisma.user.findUnique({
         where:{

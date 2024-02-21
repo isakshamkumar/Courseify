@@ -9,6 +9,10 @@ export async function GET(request: NextRequest) {
   if(!userId){
     return NextResponse.json({error:true,message:"User Id Required"},{status:400})
   }
+  // const userId = request.headers.get('userId');
+  // if (!userId) {
+  //   return NextResponse.json({error: true, message: 'User Id Required'}, {status: 400});
+  // }
 
   // console.log(userId);
 

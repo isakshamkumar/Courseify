@@ -15,6 +15,7 @@ export const getVideoWithKeys=async(courseId:string,userId:string)=>{
       // console.log('response.jsonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn');
       // console.log('response.jsonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn');
       // console.log('response.jsonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn');
+      console.log(response,'response from getVideosssssssssssssssssssssssssssss');
       
 
       return response.json()

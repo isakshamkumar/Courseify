@@ -33,6 +33,8 @@ const Video = ({
     const fetchVideo=async()=>{
 
       const video= await getVideoWithPopulatedKeys(videos)
+      console.log(video,'video from getVideoWithPopulatedKeys');
+      
       setvideo(video)
     }
     fetchVideo()

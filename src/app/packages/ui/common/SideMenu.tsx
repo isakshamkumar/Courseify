@@ -5,7 +5,7 @@ import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
-import { useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 import { fetchUserData } from "../../redux/UserSlice";
 import { AppDispatch } from "../../redux/store";
 
@@ -14,19 +14,13 @@ const SideMenu = () => {
   const session = useSession();
   // const newSession=getServerSession(authOptions)
   const handleSignout = () => {
-    
     router.push("/home");
     signOut();
   };
   const dispatch = useDispatch<AppDispatch>();
-  
 
-  
+  dispatch(fetchUserData());
 
-
-    dispatch(fetchUserData());
-
- 
   console.log(session, "from side menuuuuuuuuuuuuuuuuu");
 
   if (session?.data?.user) {
@@ -181,6 +175,33 @@ const SideMenu = () => {
                     </span>
                   </a>
                 </li>
+                <Link href={"/chat"}>
+               
+                <li>
+                  <a
+                    href=""
+                    className="group relative flex justify-center rounded px-2 py-1.5 mt-7 text-gray-500 hover:bg-gray-50 hover:text-gray-700"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      className="h-4 w-4 opacity-75"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="M4 22.8V4a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v18.8l-9.5-4.7l-9.5 4.7z"></path>
+                      <line x1="4" y1="4" x2="20" y2="4"></line>
+                    </svg>
+
+                    <span className="absolute start-full top-1/2 ms-4 -translate-y-1/2 rounded bg-gray-900 px-2 py-1.5 text-xs font-medium text-white opacity-0 group-hover:opacity-100">
+                      Chat
+                    </span>
+                  </a>
+                </li>
+                </Link>
               </ul>
             </div>
           </div>
@@ -188,7 +209,7 @@ const SideMenu = () => {
 
         <div className="sticky inset-x-0 bottom-0 border-t border-gray-100 bg-white p-2">
           <button
-          type="button"
+            type="button"
             onClick={handleSignout}
             className="group relative flex w-full justify-center rounded-lg px-2 py-1.5 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
           >

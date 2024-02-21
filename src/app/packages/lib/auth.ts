@@ -129,9 +129,10 @@ export const authOptions = {
     ],
     secret: "4545454545454545454545454",
     session: {
-      jwt: true,
-      maxAge: 24 * 60 * 60, // The expiry time for JWT
-      updateAge: 24 * 60 * 60, // The time to update the session
+    //   jwt: true,
+    //   maxAge: 24 * 60 * 60, // The expiry time for JWT
+    //   updateAge: 24 * 60 * 60, // The time to update the session
+    strategy:"jwt"
     },
     debug: process.env.NODE_ENV === "development",
   };

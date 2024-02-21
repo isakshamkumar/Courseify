@@ -12,6 +12,7 @@ type Props = {};
 
 const PurchasedCourses = (props: Props) => {
   const userId = useSelector<RootState>((state) => state.user.user?.id);
+  
   const [purchasedCourses, setPurchasedCourses] = useState([]);
   const [loading,setloading]=useState(false)
 
