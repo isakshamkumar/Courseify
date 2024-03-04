@@ -60,11 +60,19 @@ const ChatPage = (props: Props) => {
   const [connectedUsers,setConnectedUsers]=useState(0)
   //@ts-ignore
   const userName= useSelector(state=>state.user.user.name)
+  const room = Math.floor(Math.random() *4)
+  console.log(room,'roooooooooom');
+  
     //@ts-ignore
-
   const userId= useSelector(state=>state.user.user.id)
     //@ts-ignore
-  const img= useSelector(state=>state.user.user.image)
+  let img= useSelector(state=>state.user.user.image)
+  if(!img){
+    img ="https://images.pexels.com/photos/5273062/pexels-photo-5273062.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+  }
+  //@ts-ignore
+  console.log(useSelector(state=>state?.user),'user from chatpageeeeeeeeeeee');
+  
   const [socket, setSocket] = useState(null);
   useEffect(()=>{
     const connectToSocket=async()=>{
@@ -166,7 +174,8 @@ setConnectedUsers(count.count)
     time,
     userId,
     date,
-    msg:inputMsg
+    msg:inputMsg,
+    room
     }
     if(socket){
       socket.emit("msg",JSON.stringify(msg));

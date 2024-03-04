@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { userSlice } from "@/app/packages/redux/UserSlice";
 import { useRouter } from "next/navigation";
 import Spinner from "@/app/packages/ui/common/Spinner";
+import { addJobs } from "@/app/packages/config/Producer";
 
 export default function SuccessPage() {
   const router=useRouter()
@@ -17,6 +18,8 @@ export default function SuccessPage() {
   const session_id = searchParams.get("session_id");
   //@ts-ignore
 const userId = useSelector((state) => state.user.user.id);
+//@ts-ignore
+const email= useSelector((state) => state.user.user.email);
 // console.log(userState,'userStateeeeeeeeeeeeeee');
 
   console.log(session_id, "session_id");
@@ -30,12 +33,14 @@ const userId = useSelector((state) => state.user.user.id);
       const fetchSession = async () => {
         console.log('fetchsession calleddddddddddddddddddddddddddddddddddddddddddddddddd');
         
-        const response = await fetch("/api/payment", {
+        const response = await fetch("http://localhost:3000/api/payment", {
           method: "POST",
           body: JSON.stringify({ session_id,userId }),
         });
+        const data= await response.json();
        
         setLoading(false)
+       
      
       };
       fetchSession()

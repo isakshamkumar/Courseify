@@ -10,6 +10,7 @@ import SideBar from "@/app/packages/ui/common/CoursePage/SideBar";
 import { getCourse } from "@/app/packages/lib/getCourse";
 import { getCourses } from "@/app/packages/lib/getCourses";
 import { Course } from "@prisma/client";
+import { addJobs } from "@/app/packages/config/Producer";
 
 type Params = {
   params: {
@@ -52,6 +53,7 @@ const CoursePage: React.FC<Params> = async ({ params: { courseId } }) => {
             />
 
             <SideBar course={course} />
+          
           </div>
         </div>
       )}

@@ -5,6 +5,8 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import GithubProvider from "next-auth/providers/github";
 import bcrypt from "bcrypt";
+import { addJobs } from "../config/Producer";
+import '../../packages/config/Worker'
 type AuthorizeCredentials = {
     email?: string;
     password?: string;
@@ -67,7 +69,7 @@ export const authOptions = {
             });
             if (!existingUser && !credentials?.signin) {
               const response = await fetch(
-                "/api/user/register",
+                "http://localhost:3000/api/user/register",
                 {
                   method: "POST",
                   headers: {
@@ -89,6 +91,7 @@ export const authOptions = {
               const data = await response.json();
               console.log(data);
               user=data.user;
+               addJobs(credentials.email,'SuccessFully Created Account in Courseify',`Welcome ${credentials.firstName} ${credentials.lastName}. Learn from the most industry oriented courses, connect with like minded individuals. Happy Learning!.`)
           }
           if(!existingUser && credentials?.signin){
               throw new Error("This User Does not exists!, Signup")

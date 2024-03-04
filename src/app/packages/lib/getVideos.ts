@@ -1,5 +1,5 @@
 export const getVideoWithKeys=async(courseId:string,userId:string)=>{
-    const response = await fetch("/api/video", {
+    const response = await fetch("http://localhost:3000/api/video", {
         headers: {
           "Content-Type": "application/json",
           courseId: courseId,

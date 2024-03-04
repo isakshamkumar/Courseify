@@ -49,6 +49,7 @@ const Home =  () => {
             <Filters />
 
             <SideCourses courses={products} />
+            
           </div>
         </div>
       </section>
