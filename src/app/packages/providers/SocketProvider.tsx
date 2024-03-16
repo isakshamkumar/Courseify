@@ -11,7 +11,8 @@ export const SocketProvider = ({ children }) => {
 const[socket,setsocket]=useState(null)
   useEffect(()=>{
 // console.log('Socker provider added');
-setsocket(io('http://localhost:3001'))
+// setsocket(io('http://localhost:3001'))
+setsocket(io('https://courseify-1.onrender.com'))
 
 return ()=>{
   // console.log('Socker provider removed');
