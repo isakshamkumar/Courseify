@@ -6,7 +6,7 @@ export const handleUpload = async (selectedFile:any) => {
       formData.append('file', selectedFile);
       // console.log(formData);
       
-const response= await fetch('http://localhost:3001/upload',{
+const response= await fetch('/upload',{
     method:'POST',
    body:formData
 })

@@ -8,7 +8,7 @@ export const userPurchasedCourses = async (userId:any) => {
     // console.log(typeof userId);
     
     
-    const response = await fetch("http://localhost:3000/api/user/purchasedCourses", {
+    const response = await fetch("/api/user/purchasedCourses", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
