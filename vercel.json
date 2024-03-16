@@ -1,8 +1,9 @@
 {
-    "functions": {
-      "api/**/*.{js,ts}": {
-        "runtime": "nodejs"
-      }
+  "version": 3, 
+  "builds": [
+    {
+      "src": "/api/**/*.{js,ts}",
+      "use": "@vercel/node@latest"
     }
-  }
-  
+  ]
+}
