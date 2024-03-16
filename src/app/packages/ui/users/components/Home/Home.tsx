@@ -15,7 +15,7 @@ import Spinner from "../../../common/Spinner";
 const Home =  () => {
  
   const [pageNumber, setPageNumber] = useState(1);
-  console.log(pageNumber, "from home");
+  // console.log(pageNumber, "from home");
 
   const products = getCourses();
   // const[filteredProducts,setfilteredProducts]=useState(products);

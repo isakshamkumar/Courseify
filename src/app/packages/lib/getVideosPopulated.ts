@@ -1,7 +1,7 @@
 
 export const getVideoWithPopulatedKeys=async(videoPromises:any)=>{
     const videoswithKeys= await videoPromises
-    console.log(videoswithKeys,'videowithkeys from getpopulatedKeys');
+    // console.log(videoswithKeys,'videowithkeys from getpopulatedKeys');
     
 
     const videos = await Promise.all(
@@ -13,7 +13,7 @@ export const getVideoWithPopulatedKeys=async(videoPromises:any)=>{
 
 async function populateVideoKeys(video:any)  {
     const response = await fetch(`http://localhost:3000/api/video/${video.videoUrl}`);
-    console.log(video, "videoooooooooooooooooo");
+    // console.log(video, "videoooooooooooooooooo");
 
     const videoUrl = await response.json();
     // console.log(videoUrl.url);

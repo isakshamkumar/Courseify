@@ -9,7 +9,7 @@ const Signin = ({role}:{role:string}) => {
     email: "",
     password: "",
   });
-  console.log(formData);
+  // console.log(formData);
   
   const session = useSession();
   const router = useRouter();

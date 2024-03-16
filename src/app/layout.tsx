@@ -8,6 +8,7 @@ import CheckOnlineStatus from "./packages/providers/CheckOnlineStatus";
 import { Suspense } from "react";
 import Loading from "./loading";
 import StoreProvider from "./packages/providers/StoreProvider";
+import { SocketProvider } from "./packages/providers/SocketProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -32,7 +33,10 @@ export default function RootLayout({
             <CheckOnlineStatus>
               <SideMenu />
               {/* <div className='p-10'> */}
+              {/* <SocketProvider> */}
+
               {children}
+              {/* </SocketProvider> */}
 
               {/* </div> */}
 

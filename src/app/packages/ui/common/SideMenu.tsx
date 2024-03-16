@@ -21,7 +21,7 @@ const SideMenu = () => {
 
   dispatch(fetchUserData());
 
-  console.log(session, "from side menuuuuuuuuuuuuuuuuu");
+  // console.log(session, "from side menuuuuuuuuuuuuuuuuu");
 
   if (session?.data?.user) {
     return (

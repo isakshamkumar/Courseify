@@ -14,6 +14,6 @@ export async function addJobs(email:string, subject:string, message:string) {
         subject,
         message,
     });
-    console.log('Job Added to Email Queue');
+    // console.log('Job Added to Email Queue');
 }
 // addJobs();

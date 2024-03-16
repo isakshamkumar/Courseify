@@ -17,7 +17,7 @@ const Signup = ({ role }: { role: string }) => {
   if (session?.data?.user) {
     router.push("/home");
   }
-  console.log(formData);
+  // console.log(formData);
   const handleSignup = async (e: any) => {
     // console.log(e.target.name);
 

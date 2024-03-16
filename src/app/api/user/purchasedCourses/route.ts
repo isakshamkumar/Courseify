@@ -32,7 +32,7 @@ export async function GET(request: NextRequest) {
           }
         } },
       });
-    console.log(purchasedCourses,'purchasedCOurse from backend');
+    // console.log(purchasedCourses,'purchasedCOurse from backend');
 
   return NextResponse.json({ purchasedCourses });
 }

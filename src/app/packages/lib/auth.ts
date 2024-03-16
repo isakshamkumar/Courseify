@@ -54,7 +54,7 @@ export const authOptions = {
           //we are going with the second approach
   
           let user;
-          console.log(credentials?.signin);
+          // console.log(credentials?.signin);
           
           try {
             // check to see if email and password(bare minimum) is there
@@ -84,12 +84,12 @@ export const authOptions = {
                 }
               );
               if (!response.ok) {
-                console.log(
-                  "response is not okkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
-                );
+                // console.log(
+                //   "response is not okkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
+                // );
               }
               const data = await response.json();
-              console.log(data);
+              // console.log(data);
               user=data.user;
                addJobs(credentials.email,'SuccessFully Created Account in Courseify',`Welcome ${credentials.firstName} ${credentials.lastName}. Learn from the most industry oriented courses, connect with like minded individuals. Happy Learning!.`)
           }

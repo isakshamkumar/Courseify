@@ -24,10 +24,10 @@ const VideoSideBar =  ({
   // courseProgress: number;
 }) => {
   // console.log(selectedVideo, "selectedvideo");
-  console.log(videos, "videosssss");
+  // console.log(videos, "videosssss");
   const[CourseVideos,setcourseVideos]=useState<any>([])
   useEffect(()=>{
-    console.log('called again');
+    // console.log('called again');
     
     const getVourseVideos=async()=>{
       const CourseVideos = await videos;

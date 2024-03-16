@@ -6,7 +6,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 
 export async function middleware(req: NextRequest) {
-    console.log('middlware calledddddd');
+    // console.log('middlware calledddddd');
     
   // const token = await getToken({ req, secret: '4545454545454545454545454' })  // Use an environment variable for the secret
   // console.log(token,'tokennnnnnn');

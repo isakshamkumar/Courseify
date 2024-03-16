@@ -12,9 +12,9 @@ import { loadStripe } from "@stripe/stripe-js";
 // };
 
 export const makePayment = async (course: any) => {
-  console.log('makePaymenttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt');
+  // console.log('makePaymenttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt');
   
-  console.log(course,'courseeeeee');
+  // console.log(course,'courseeeeee');
   
   const stripe = await loadStripe(
     "pk_test_51OIvAGSD2kCc8s2SsDpoYtNUZX7rsHp0fkrTUPcRwlDgVGtY6ytSUOeXryDsmbtW4xr6aBsaaMa4A6SgFBPYmwDP00MiQpKuP7"
@@ -34,18 +34,18 @@ export const makePayment = async (course: any) => {
     }
   );
   const session = await response.json();
-  console.log(session ,'session from stripe');
+  // console.log(session ,'session from stripe');
   
   const result = stripe?.redirectToCheckout({
     sessionId: session.sessionId,
   });
   if(await result){
-    console.log(await result);
+    // console.log(await result);
     
   }
   
   if((await result)?.error){
-    console.log((await result)?.error);
+    // console.log((await result)?.error);
     
   }
 };

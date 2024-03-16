@@ -6,12 +6,12 @@ import { NextRequest, NextResponse } from "next/server";
 export async function GET(request: NextRequest): Promise<NextResponse> {
   // Extract the pathname from the request URL
   const pathname: string | undefined = request?.nextUrl?.pathname;
-  console.log(pathname);
+  // console.log(pathname);
 
   // Decode the pathname and extract the video key
   const decodedPathname: string = decodeURIComponent(pathname || '');
   const videoKey: string | undefined = decodedPathname.split('video/').pop();
-  console.log('video key', videoKey);
+  // console.log('video key', videoKey);
 
   // Ensure the videoKey is defined before proceeding
   if (!videoKey) {

@@ -20,12 +20,12 @@ const RegisterButton = ({
 }) => {
   const router = useRouter();
   const session = useSession();
-  console.log(
-    session,
-    "sesssssionnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn"
-  );
+  // console.log(
+  //   session,
+  //   "sesssssionnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn"
+  // );
 
-  console.log(role, "from", method);
+  // console.log(role, "from", method);
   const signinHandler = async () => {
     signIn("credentials", { ...formData,signin:true, redirect: false }).then((callback) => {
       if (callback?.error) {
@@ -50,7 +50,7 @@ const RegisterButton = ({
       }
     });
   };
-  console.log(formData, "formdataaaaaaaa");
+  // console.log(formData, "formdataaaaaaaa");
 
   return (
     <div className="col-span-6 sm:flex sm:items-center sm:gap-4">

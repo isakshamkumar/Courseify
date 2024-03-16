@@ -22,7 +22,7 @@ const userId = useSelector((state) => state.user.user.id);
 const email= useSelector((state) => state.user.user.email);
 // console.log(userState,'userStateeeeeeeeeeeeeee');
 
-  console.log(session_id, "session_id");
+  // console.log(session_id, "session_id");
 
 
 
@@ -31,7 +31,7 @@ const email= useSelector((state) => state.user.user.email);
     if(!loading && !count){
       setLoading(true)
       const fetchSession = async () => {
-        console.log('fetchsession calleddddddddddddddddddddddddddddddddddddddddddddddddd');
+        // console.log('fetchsession calleddddddddddddddddddddddddddddddddddddddddddddddddd');
         
         const response = await fetch("http://localhost:3000/api/payment", {
           method: "POST",

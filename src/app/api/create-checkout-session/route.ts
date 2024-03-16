@@ -35,7 +35,7 @@ export async function POST(request: NextRequest) {
     
     
     const {id, title, description, thumbnail, price } = course.course;
-    console.log(id,'iddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd');
+    // console.log(id,'iddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd');
     
     const amount = Math.round(price * 100); // Convert to the smallest currency unit
 

@@ -10,7 +10,7 @@ const SideCourses:React.FC<{courses:any}> = async({courses}) => {
     }
   }
   )
-  console.log(featured,'featuredddddd');
+  // console.log(featured,'featuredddddd');
   
   return (
     <div className="lg:col-span-3 ml-12">

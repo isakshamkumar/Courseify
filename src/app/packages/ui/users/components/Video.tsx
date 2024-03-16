@@ -33,7 +33,7 @@ const Video = ({
     const fetchVideo=async()=>{
 
       const video= await getVideoWithPopulatedKeys(videos)
-      console.log(video,'video from getVideoWithPopulatedKeys');
+      // console.log(video,'video from getVideoWithPopulatedKeys');
       
       setvideo(video)
     }
@@ -45,7 +45,7 @@ const Video = ({
   if(mounted && video){
 
     const v= video[selectedVideo]
-    console.log(v,'selectedVideooooooooooo');
+    // console.log(v,'selectedVideooooooooooo');
     const handleEnded=async()=>{
       if(!v.completed){
       toast.success('Updating Video and Course Progress')

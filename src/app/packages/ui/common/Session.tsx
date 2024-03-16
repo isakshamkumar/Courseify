@@ -4,7 +4,7 @@ import React from 'react'
 
 const Session = () => {
     const session=useSession()
-    console.log(session,'from session');
+    // console.log(session,'from session');
     
   return (
     <div>

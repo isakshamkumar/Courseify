@@ -21,7 +21,7 @@ const PurchasedCourses = (props: Props) => {
     const fetchCourses = async () => {
       setloading(true)
       let courses = await userPurchasedCourses(userId);
-      console.log(courses,'from purchased Coursesssssssssssssssssssssssssssssssssssssss');
+      // console.log(courses,'from purchased Coursesssssssssssssssssssssssssssssssssssssss');
       
       setPurchasedCourses(courses.purchasedCourses.purchases);
       setloading(false)

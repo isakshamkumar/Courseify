@@ -9,12 +9,12 @@ interface UserState {
 
 export const fetchUserData = createAsyncThunk<User>('user/fetchUser', async () => {
   try {
-    console.log('startingggggggggggggggggggggg');
+    // console.log('startingggggggggggggggggggggg');
     
     const response = await fetch('/api/me');
     if (!response.ok) throw new Error("Error fetching Data for User");
     const data = await response.json();
-    console.log(data,'thunkkkkkkkkkkkkkkkkkkkk');
+    // console.log(data,'thunkkkkkkkkkkkkkkkkkkkk');
     
     return data.user;
   } catch (error) {

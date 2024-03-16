@@ -5,7 +5,7 @@ const worker = new Worker(
   "email-queue",
   async (job) => {
     const { email, subject, message } = job.data;
-    console.log(`Sending Email to ${email} of Job Id ${job.id}`);
+    // console.log(`Sending Email to ${email} of Job Id ${job.id}`);
     await sendEmail(email, subject, message);
    
   },

@@ -4,8 +4,8 @@ import { RootState } from "../redux/store";
 
 export const userPurchasedCourses = async (userId:any) => {
  
-    console.log(userId,'from getpurchaseddddddddddd');
-    console.log(typeof userId);
+    // console.log(userId,'from getpurchaseddddddddddd');
+    // console.log(typeof userId);
     
     
     const response = await fetch("http://localhost:3000/api/user/purchasedCourses", {

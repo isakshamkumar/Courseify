@@ -11,11 +11,11 @@ export async function POST(req: NextRequest) {
 
   // Get the raw request body as a string
   const reqBody = await req.text();
-  console.log(reqBody,'reqbodydyyyyyyyyyy');
+  // console.log(reqBody,'reqbodydyyyyyyyyyy');
   
   // Get the signature header
   const signature = req.headers["stripe-signature"] as string;
-  console.log(signature,'signatureeeeeeeeeeeeeeeeeeeeeeeeeeeee');
+  // console.log(signature,'signatureeeeeeeeeeeeeeeeeeeeeeeeeeeee');
   
   // Get the webhook secret from the environment variables
   const webhookSecret = "whsec_0geP2FgFZeEsAQSUeQ9jmsfLzBeIFEHR";
@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
       break;
     // ... handle other event types
     default:
-      console.log(`Unhandled event type: ${event.type}`);
+      // console.log(`Unhandled event type: ${event.type}`);
   }
 
   // Return a response to acknowledge receipt of the event
@@ -57,7 +57,7 @@ async function handleCheckoutSession(session) {
     { expand: ["line_items"] }
   );
   const lineItems = checkoutSession.line_items.data;
-  console.log(lineItems);
+  // console.log(lineItems);
 
   // Save the line items to your database
   // Your logic for saving the items to the database goes here
