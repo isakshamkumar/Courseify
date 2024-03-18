@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npm install && cd ws-backend && npm run build && node dist/ws-backend/src/index.js  ",
+    "build": "npm install && ls && cd ws-backend && npm run build && node dist/ws-backend/src/index.js  ",
     "start": "next start",
     "lint": "next lint"
   },
