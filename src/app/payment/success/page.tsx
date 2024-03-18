@@ -33,7 +33,7 @@ const email= useSelector((state) => state.user.user.email);
       const fetchSession = async () => {
         // console.log('fetchsession calleddddddddddddddddddddddddddddddddddddddddddddddddd');
         
-        const response = await fetch("http://localhost:3000/api/payment", {
+        const response = await fetch("http://ec2-52-205-96-34.compute-1.amazonaws.com:3000/api/payment", {
           method: "POST",
           body: JSON.stringify({ session_id,userId }),
         });
