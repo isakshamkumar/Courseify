@@ -24,17 +24,17 @@ type Params = {
 //       courseId: course.id.toString()
 //   }))
 // }
-export async function generateMetadata({
-  params: { courseId },
-}: Params): Promise<Metadata> {
-  const data = await getCourse(courseId);
-  const course: Course = data.course;
+// export async function generateMetadata({
+//   params: { courseId },
+// }: Params): Promise<Metadata> {
+//   const data = await getCourse(courseId);
+//   const course: Course = data.course;
 
-  return {
-    title: course.title,
-    description: course.description,
-  };
-}
+//   return {
+//     title: course.title,
+//     description: course.description,
+//   };
+// }
 
 const CoursePage: React.FC<Params> = async ({ params: { courseId } }) => {
   const data = await getCourse(courseId);
