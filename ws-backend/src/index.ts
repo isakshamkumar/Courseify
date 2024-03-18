@@ -34,7 +34,7 @@ const publisher = new Redis(UPSTASH_REDIS_REST_URL);
 const subscriber = new Redis(UPSTASH_REDIS_REST_URL);
 const io = new Server(ExpressServer, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: "*",
     methods: ["GET", "POST"],
   },
 });
