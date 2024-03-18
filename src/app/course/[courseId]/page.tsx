@@ -1,4 +1,4 @@
-// "use client"
+"use client"
 //if we want to use generateMwtadera function we havr to rwnder this page serverside then but we cannot have onlclicks on out btns coz inclick is a client effect
 //also put all this code in components, technicaly next js is correct
 
