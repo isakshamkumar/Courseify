@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "ls && cd ws-backend && ls && npm run build && ls && node dist/ws-backend/src/index.js  ",
+    "build": "npm install && next build && prisma generate && cd ws-backend && ls && npm run build && ls && node dist/ws-backend/src/index.js  ",
     "start-backend":"npm run dev",
     "start": "next start",
     "lint": "next lint"
