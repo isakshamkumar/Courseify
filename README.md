@@ -1,4 +1,4 @@
-![Screenshot from 2024-04-24 12-45-38](https://github.com/isakshamkumar/Courseify/assets/124489667/7b894ece-4171-44fb-8b37-66eda91a674b)![Screenshot from 2024-04-24 12-45-17](https://github.com/isakshamkumar/Courseify/assets/124489667/f9c2bfd5-1e11-42ef-9050-7c840a1b8c0d)Courseify is a modern course-selling platform that redefines online learning with its user-friendly interfaces and cutting-edge technologies.
+Courseify is a modern course-selling platform that redefines online learning with its user-friendly interfaces and cutting-edge technologies.
 
 Accessible to all, Courseify offers a diverse range of courses covering various topics, fostering collaboration and community engagement at its core. Here's a closer look at its features:
 
