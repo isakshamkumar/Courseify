@@ -23,7 +23,7 @@ Accessible to all, Courseify offers a diverse range of courses covering various 
 - **Database**: PostgreSQL
 - **Authentication**: NextAuth
 - **Payment Gateway**: Stripe
-- **Chat Backend**: Node.js, Redis
+- **Chat Backend**: Node.js,Socket.IO,Redis 
 - **Email**: Nodemailer, BullMQ
 
 With Courseify, discover a new way to learn and teach online.
